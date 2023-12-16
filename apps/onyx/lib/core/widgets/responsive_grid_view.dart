@@ -30,7 +30,11 @@ class ResponsiveGridView extends StatelessWidget {
         padding: padding,
         shrinkWrap: shrinkWrap,
         children: children
-            .map((e) => Padding(
+            .map((e) => Container(
+                constraints: BoxConstraints(
+                  maxHeight: maxCrossAxisExtent * childAspectRatio,
+                  minHeight: 0,
+                ),
                 padding: EdgeInsets.symmetric(
                   vertical: mainAxisSpacing,
                 ),

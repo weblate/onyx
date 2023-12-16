@@ -25,7 +25,7 @@ class SizedEventWidget extends StatelessWidget {
     return SizedBox(
       height: height,
       width: columnWidth / numberPerColumn,
-      child: EventWidget(
+      child: EventInGridWidget(
         event: event,
         compact: (height < 50) || (columnWidth / numberPerColumn < 100),
       ),

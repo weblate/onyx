@@ -34,9 +34,6 @@ class GradeListWidget extends StatelessWidget {
                 child: GradeWidget(
                   grades: [grades],
                   isSeen: true,
-                  text1: grades.title.replaceAll("_", " "),
-                  text2:
-                      "Moyenne : ${grades.average.toStringAsFixed(2)} · Mediane : ${grades.mediane.toStringAsFixed(2)}\nClassement : ${grades.rank + 1}/${grades.groupeSize}\nProfesseur : ${grades.author}",
                   depth: depth,
                 ),
               ),

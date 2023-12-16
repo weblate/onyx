@@ -6,11 +6,11 @@ import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class EventWidget extends StatelessWidget {
+class EventInGridWidget extends StatelessWidget {
   final Event event;
   final bool compact;
 
-  const EventWidget({
+  const EventInGridWidget({
     super.key,
     required this.event,
     this.compact = false,

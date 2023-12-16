@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/core/screens/home/widgets/preview/agenda_preview.dart';
+import 'package:onyx/core/screens/home/widgets/preview/tomuss_preview.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/colloscope/pages/colloscope_page.dart';
 import 'package:onyx/screens/colloscope/widgets/colloscope_bottom_nav_bar_icon.dart';
@@ -118,6 +120,25 @@ extension FunctionalitiesExtention on Functionalities {
         return ColloscopeSettingsWidget(
           key: key,
         );
+    }
+  }
+
+  Widget toPreview() {
+    switch (this) {
+      case Functionalities.tomuss:
+        return const TomussPreview();
+      case Functionalities.agenda:
+        return const AgendaPreview();
+      // case Functionalities.mail:
+      //   return const MailPreview();
+      // case Functionalities.map:
+      //   return const MapPreview();
+      // case Functionalities.izly:
+      //   return const IzlyPreview();
+      // case Functionalities.settings:
+      //   return const SettingsPreview();
+      default:
+        return const Text("coucou");
     }
   }
 }

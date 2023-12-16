@@ -73,10 +73,6 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
       GradeWidget(
         grades: [grade],
         isSeen: true,
-        text1: grade.title.replaceAll("_", " "),
-        text2:
-            "Moyenne : ${grade.average.toStringAsFixed(2)} · Mediane : ${grade.mediane.toStringAsFixed(2)}\nClassement : ${grade.rank + 1}/${grade.groupeSize}\nProfesseur : ${grade.author}",
-        depth: 1,
       ),
     );
     if (grade.children.isNotEmpty) {

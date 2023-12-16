@@ -13,20 +13,22 @@ import 'package:share_plus/share_plus.dart';
 
 class GradeWidget extends StatefulWidget {
   final List<Grade> grades;
-  final String text1;
-  final String text2;
+  final String? text1;
+  final String? text2;
   final bool isSeen;
   final VoidCallback? onTap;
   final int depth;
+  final bool showCoef;
 
   const GradeWidget({
     super.key,
     required this.grades,
-    required this.text1,
-    required this.text2,
-    required this.depth,
+    this.text1,
+    this.text2,
+    this.depth = 1,
     this.isSeen = false,
     this.onTap,
+    this.showCoef = true,
   });
 
   @override
@@ -85,7 +87,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                 Flexible(
                   fit: FlexFit.tight,
                   flex: 10,
-                  child: Container(
+                  child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
                       gradeNumerator,
@@ -136,7 +138,8 @@ class _GradeWidgetState extends State<GradeWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.text1,
+                          widget.text1 ??
+                              widget.grades.first.title.replaceAll("_", " "),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).textTheme.bodyLarge!.color,
@@ -144,7 +147,8 @@ class _GradeWidgetState extends State<GradeWidget> {
                           ),
                         ),
                         Text(
-                          widget.text2,
+                          widget.text2 ??
+                              "Moyenne : ${widget.grades.first.average.toStringAsFixed(2)} · Mediane : ${widget.grades.first.mediane.toStringAsFixed(2)}\nClassement : ${widget.grades.first.rank + 1}/${widget.grades.first.groupeSize}\nProfesseur : ${widget.grades.first.author}",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyLarge!.color,
@@ -158,7 +162,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                 const Spacer(
                   flex: 1,
                 ),
-                if (widget.depth == 1)
+                if (widget.depth == 1 && widget.showCoef)
                   GradeCoefWidget(grade: widget.grades.first),
                 IconButton(
                     onPressed: () async {

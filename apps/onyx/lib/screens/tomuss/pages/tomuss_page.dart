@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/core/screens/home/logic/home_logic.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -49,6 +50,20 @@ class _TomussPageState extends State<TomussPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (HomeLogic.openScreenMessage is ({
+      TeachingUnit teachingUnit,
+      TeachingUnitElement teachingUnitElement
+    })) {
+      print(HomeLogic.openScreenMessage);
+      showAllGrades(
+        context,
+        (HomeLogic.openScreenMessage as ({
+          TeachingUnit teachingUnit,
+          TeachingUnitElement teachingUnitElement
+        }))
+            .teachingUnit,
+      );
+    }
     return BlocBuilder<TomussCubit, TomussState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
