@@ -51,16 +51,24 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
             }
           }
         }
-        return ResponsiveGridView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          maxCrossAxisExtent: (!Res.isWide) ? 70.w : 70.h,
-          padding: const EdgeInsets.all(10.0),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 3 / 1,
-          //3=width 1=height
-          children: widgets,
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(teachingUnit.title),
+          ),
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: ResponsiveGridView(
+                shrinkWrap: true,
+                maxCrossAxisExtent: (!Res.isWide) ? 70.w : 70.h,
+                padding: const EdgeInsets.all(10.0),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                //3=width 1=height
+                children: widgets,
+              ),
+            ),
+          ),
         );
       },
     );
@@ -73,6 +81,7 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
       GradeWidget(
         grades: [grade],
         isSeen: true,
+        clickable: false,
       ),
     );
     if (grade.children.isNotEmpty) {

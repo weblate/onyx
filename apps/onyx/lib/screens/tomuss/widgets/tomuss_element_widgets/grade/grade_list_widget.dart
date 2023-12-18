@@ -29,13 +29,11 @@ class GradeListWidget extends StatelessWidget {
           children: [
             treeBuilder(context, depth, lastElement),
             Expanded(
-              child: SizedBox(
-                height: 10.h,
-                child: GradeWidget(
-                  grades: [grades],
-                  isSeen: true,
-                  depth: depth,
-                ),
+              child: GradeWidget(
+                grades: [grades],
+                isSeen: true,
+                depth: depth,
+                clickable: false,
               ),
             ),
           ],

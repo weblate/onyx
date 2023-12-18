@@ -11,7 +11,7 @@ class PresenceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TomussElementWidget(
+    return CommonOnyxWidget(
         color: presence.color.toColor(),
         left: Center(
           child: Text(

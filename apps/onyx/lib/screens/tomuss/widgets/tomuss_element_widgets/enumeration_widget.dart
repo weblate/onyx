@@ -11,7 +11,7 @@ class EnumerationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TomussElementWidget(
+    return CommonOnyxWidget(
       left: (enumeration.modifiable)
           ? PopupMenuButton(
               color: Theme.of(context).colorScheme.background,

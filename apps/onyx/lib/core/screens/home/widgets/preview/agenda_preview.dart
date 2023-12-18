@@ -1,15 +1,9 @@
-import 'dart:async';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
-import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
-import 'package:onyx/core/screens/home/logic/home_logic.dart';
-import 'package:onyx/core/screens/home/widgets/preview/screen_preview_widget.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
-import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/agenda/widgets/event_classic_widget.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
@@ -22,8 +16,6 @@ class AgendaPreview extends StatelessWidget {
     // streamController.add(DateTime.now());
     return BlocBuilder<AgendaCubit, AgendaState>(
       builder: (context, state) {
-        print("hello we should build it");
-        print(state.status);
         if (state.status == AgendaStatus.initial) {
           context.read<AgendaCubit>().load(
                 lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
@@ -39,13 +31,14 @@ class AgendaPreview extends StatelessWidget {
           }
         }
         day = Day(DateTime.now(),
-            AgendaLogic.dayListMock.first.events); //TODO change this !
+            AgendaLogic.dayListMock.first.events); //TODO change this  to [] !
 
         return OpenContainer(
             closedColor: Colors.transparent,
             closedElevation: 0,
             tappable: false,
             openBuilder: (context, action) {
+              // return Placeholder();
               return Stack(
                 children: [
                   const AgendaPage(),
@@ -53,7 +46,7 @@ class AgendaPreview extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back))
+                      icon: const Icon(Icons.arrow_back))
                 ],
               );
             },
@@ -65,7 +58,6 @@ class AgendaPreview extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
-                    HomeLogic.openScreenMessage = null;
                     action();
                   },
                   child: Column(
@@ -94,21 +86,21 @@ class AgendaPreview extends StatelessWidget {
                                     .read<SettingsCubit>()
                                     .state
                                     .settings)
-                                .where((e) => e.date
+                                .where((dayElement) => dayElement.date
                                     .shrink(3)
                                     .add(const Duration(days: 1))
                                     .isAfter(DateTime.now()))
                                 .map(
-                                  (e) => ListView(
+                                  (dayElement) => ListView(
                                       shrinkWrap: true,
                                       children: day!.events
                                           .map(
-                                            (e) => Container(
+                                            (element) => Container(
                                               padding: const EdgeInsets.only(
                                                 bottom: 8,
                                               ),
                                               child: EventClassicWidget(
-                                                event: e,
+                                                event: element,
                                               ),
                                             ),
                                           )

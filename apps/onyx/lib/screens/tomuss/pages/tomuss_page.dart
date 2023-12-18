@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1tomussclient/lyon1tomussclient.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/core/screens/home/logic/home_logic.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TomussPage extends StatefulWidget {
@@ -19,51 +15,8 @@ class TomussPage extends StatefulWidget {
 }
 
 class _TomussPageState extends State<TomussPage> {
-  void showAllGrades(BuildContext context, TeachingUnit schoolSubject) {
-    showMaterialModalBottomSheet(
-      context: context,
-      expand: false,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      builder: (context) => SafeArea(
-        child: SingleChildScrollView(
-          controller: ModalScrollController.of(context),
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Column(
-            children: [
-              TeachingUnitChildrenTitleWidget(name: schoolSubject.title),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: TeachingUnitChildrenWidget(
-                  teachingUnit: schoolSubject,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ).then((value) {
-      setState(() {});
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (HomeLogic.openScreenMessage is ({
-      TeachingUnit teachingUnit,
-      TeachingUnitElement teachingUnitElement
-    })) {
-      print(HomeLogic.openScreenMessage);
-      showAllGrades(
-        context,
-        (HomeLogic.openScreenMessage as ({
-          TeachingUnit teachingUnit,
-          TeachingUnitElement teachingUnitElement
-        }))
-            .teachingUnit,
-      );
-    }
     return BlocBuilder<TomussCubit, TomussState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
@@ -131,10 +84,8 @@ class _TomussPageState extends State<TomussPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: HeaderChildren(
-                      onTap: (TeachingUnit teachingUnit) =>
-                          showAllGrades(context, teachingUnit)),
+                const Flexible(
+                  child: HeaderChildren(),
                 ),
                 //button to toggle semester with an icon
                 Align(
@@ -189,7 +140,8 @@ class _TomussPageState extends State<TomussPage> {
                   grades: teachingUnit.grades,
                   text2: teachingUnit.masters.map((e) => e.name).join(", "),
                   text1: teachingUnit.title.replaceAll("_", " "),
-                  onTap: () => showAllGrades(context, teachingUnit),
+                  clickable: true,
+                  teachingUnit: teachingUnit,
                   depth: 0,
                 ),
             ],

@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:onyx/core/screens/home/logic/home_logic.dart';
 
 class ScreenPreviewWidget extends StatelessWidget {
   const ScreenPreviewWidget({
@@ -17,13 +16,12 @@ class ScreenPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function()? _openAction;
+    Function()? openAction;
     stream.listen((event) {
-      HomeLogic.openScreenMessage = event;
-      _openAction!.call();
+      openAction!.call();
     });
 
-    _openAction = () {
+    openAction = () {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -44,12 +42,12 @@ class ScreenPreviewWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back))
+                  icon: const Icon(Icons.arrow_back))
             ],
           );
         },
         closedBuilder: (context, action) {
-          _openAction = action;
+          openAction = action;
           return Card(
             elevation: 5,
             shape:
@@ -57,27 +55,23 @@ class ScreenPreviewWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
               onTap: () {
-                HomeLogic.openScreenMessage = null;
-                _openAction!.call();
+                openAction!.call();
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    color: Colors.red,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Flexible(

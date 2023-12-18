@@ -5,20 +5,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 class URLCompactWidget extends StatelessWidget {
   final URL url;
-  final Function()? onTap;
-  final String teachingUnitTitle;
+  final TeachingUnit teachingUnit;
 
   const URLCompactWidget(
       {super.key,
       required this.url,
-      required this.onTap,
-      required this.teachingUnitTitle});
+      required this.teachingUnit});
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
+      teachingUnit: teachingUnit,
       text1: url.title,
-      text3: teachingUnitTitle,
+      text3: teachingUnit.title,
       child2: IconButton(
           onPressed: () async {
             if (await canLaunchUrl(Uri.parse(url.value))) {
@@ -40,7 +39,6 @@ class URLCompactWidget extends StatelessWidget {
             }
           },
           icon: const Icon(Icons.open_in_new_rounded)),
-      onTap: onTap,
     );
   }
 }

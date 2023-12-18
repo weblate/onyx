@@ -17,7 +17,7 @@ class UploadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TomussElementWidget(
+    return CommonOnyxWidget(
       left: (upload.fileUrl.isNotEmpty)
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

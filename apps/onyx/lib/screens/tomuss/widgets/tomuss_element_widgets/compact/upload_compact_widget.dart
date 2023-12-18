@@ -11,21 +11,19 @@ import 'package:open_filex/open_filex.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
-  final Function()? onTap;
-  final String teachingUnitTitle;
+  final TeachingUnit teachingUnit;
 
   const UploadCompactWidget(
       {super.key,
       required this.upload,
-      required this.onTap,
-      required this.teachingUnitTitle});
+      required this.teachingUnit});
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
+      teachingUnit: teachingUnit,
       text1: upload.title,
-      text3: teachingUnitTitle,
-      onTap: onTap,
+      text3: teachingUnit.title,
       child2: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

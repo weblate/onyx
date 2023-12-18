@@ -8,23 +8,19 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeCompactWidget extends StatelessWidget {
   final Grade grade;
-  final Function()? onTap;
-  final String teachingUnitTitle;
+  final TeachingUnit teachingUnit;
 
   const GradeCompactWidget(
-      {super.key,
-      required this.grade,
-      required this.onTap,
-      required this.teachingUnitTitle});
+      {super.key, required this.grade, required this.teachingUnit});
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
-      onTap: onTap,
       color: TomussLogic.getMainGradeColor(
           forceGreen: context.read<SettingsCubit>().state.settings.forceGreen,
           isSeen: false,
           grades: [grade]),
+      teachingUnit: teachingUnit,
       child2: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -47,7 +43,7 @@ class GradeCompactWidget extends StatelessWidget {
         ],
       ),
       text1: grade.title.replaceAll("_", " "),
-      text3: teachingUnitTitle,
+      text3: teachingUnit.title,
     );
   }
 }

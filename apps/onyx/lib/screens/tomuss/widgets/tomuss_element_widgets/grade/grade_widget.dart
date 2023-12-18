@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:screenshot/screenshot.dart';
@@ -16,9 +18,10 @@ class GradeWidget extends StatefulWidget {
   final String? text1;
   final String? text2;
   final bool isSeen;
-  final VoidCallback? onTap;
   final int depth;
   final bool showCoef;
+  final bool clickable;
+  final TeachingUnit? teachingUnit;
 
   const GradeWidget({
     super.key,
@@ -27,8 +30,9 @@ class GradeWidget extends StatefulWidget {
     this.text2,
     this.depth = 1,
     this.isSeen = false,
-    this.onTap,
     this.showCoef = true,
+    required this.clickable,
+    this.teachingUnit,
   });
 
   @override
@@ -67,13 +71,20 @@ class _GradeWidgetState extends State<GradeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TomussCubit, TomussState>(builder: (context, state) {
-      calculateNumerator();
-      return GestureDetector(
-        onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
-        child: Screenshot(
+    assert(widget.clickable || widget.teachingUnit == null,
+        "ensure that if clickable is false, onTap is null");
+    return BlocBuilder<TomussCubit, TomussState>(
+      builder: (context, state) {
+        calculateNumerator();
+        return Screenshot(
           controller: screenshotController,
-          child: TomussElementWidget(
+          child: CommonOnyxWidget(
+            openedChild: (widget.teachingUnit != null)
+                ? TeachingUnitChildrenWidget(
+                    teachingUnit: widget.teachingUnit!,
+                  )
+                : null,
+            tapable: widget.clickable,
             color: TomussLogic.getMainGradeColor(
                 forceGreen:
                     context.read<SettingsCubit>().state.settings.forceGreen,
@@ -136,6 +147,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           widget.text1 ??
@@ -146,13 +158,17 @@ class _GradeWidgetState extends State<GradeWidget> {
                             fontSize: 15.sp,
                           ),
                         ),
-                        Text(
-                          widget.text2 ??
-                              "Moyenne : ${widget.grades.first.average.toStringAsFixed(2)} · Mediane : ${widget.grades.first.mediane.toStringAsFixed(2)}\nClassement : ${widget.grades.first.rank + 1}/${widget.grades.first.groupeSize}\nProfesseur : ${widget.grades.first.author}",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyLarge!.color,
-                            fontSize: 12.5.sp,
+                        Flexible(
+                          child: AutoSizeText(
+                            widget.text2 ??
+                                "Moyenne : ${widget.grades.first.average.toStringAsFixed(2)} · Mediane : ${widget.grades.first.mediane.toStringAsFixed(2)}\nClassement : ${widget.grades.first.rank + 1}/${widget.grades.first.groupeSize}\nProfesseur : ${widget.grades.first.author}",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                            minFontSize: 10.sp.roundToDouble(),
+                            maxFontSize: 13.sp.roundToDouble(),
                           ),
                         ),
                       ],
@@ -182,10 +198,9 @@ class _GradeWidgetState extends State<GradeWidget> {
                     )),
               ],
             ),
-            onTap: widget.onTap,
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

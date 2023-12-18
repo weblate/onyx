@@ -34,9 +34,11 @@ class TomussPreview extends StatelessWidget {
                   widget = GradeWidget(
                     showCoef: false,
                     grades: [e.teachingUnitElement as Grade],
-                    onTap: () {
-                      streamController.add(e);
-                    },
+                    clickable: true,
+                    teachingUnit: e.teachingUnit,
+                    // onTap: () {
+                    //   streamController.add(e);
+                    // },
                   );
                   break;
                 case const (Enumeration):

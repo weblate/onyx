@@ -12,31 +12,44 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CommonScreenWidget(
-        header: Center(
-          child: Text(
-            'Onyx',
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                const Scaffold(body: SafeArea(child: SettingsPage())),
           ),
         ),
-        body: ResponsiveGridView(
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          padding: const EdgeInsets.all(10),
-          maxCrossAxisExtent: (!Res.isWide) ? 70.w : 30.w,
-          shrinkWrap: true,
-          childAspectRatio: 1,
-          children: context
-              .read<SettingsCubit>()
-              .state
-              .settings
-              .enabledFunctionalities
-              .map((e) => e.toPreview())
-              .toList(),
+        child: const Icon(Icons.settings),
+      ),
+      body: SafeArea(
+        child: CommonScreenWidget(
+          header: Center(
+            child: Text(
+              'Onyx',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          body: ResponsiveGridView(
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            padding: const EdgeInsets.all(10),
+            maxCrossAxisExtent: (!Res.isWide) ? 70.w : 30.w,
+            shrinkWrap: true,
+            childAspectRatio: 1,
+            children: context
+                .read<SettingsCubit>()
+                .state
+                .settings
+                .enabledFunctionalities
+                .map((e) => e.toPreview())
+                .toList(),
+          ),
         ),
       ),
     );

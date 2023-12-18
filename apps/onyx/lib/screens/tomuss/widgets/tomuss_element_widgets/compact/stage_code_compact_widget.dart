@@ -4,22 +4,20 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class StageCodeCompactWidget extends StatelessWidget {
   final StageCode stageCode;
-  final Function()? onTap;
-  final String teachingUnitTitle;
+  final TeachingUnit teachingUnit;
 
   const StageCodeCompactWidget(
       {super.key,
       required this.stageCode,
-      required this.onTap,
-      required this.teachingUnitTitle});
+      required this.teachingUnit});
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
+      teachingUnit: teachingUnit,
       text1: stageCode.title,
       text2: stageCode.value,
-      text3: teachingUnitTitle,
-      onTap: onTap,
+      text3: teachingUnit.title,
     );
   }
 }

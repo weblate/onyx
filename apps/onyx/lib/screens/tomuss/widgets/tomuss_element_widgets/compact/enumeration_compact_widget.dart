@@ -8,19 +8,17 @@ class EnumerationCompactWidget extends StatelessWidget {
   const EnumerationCompactWidget(
       {super.key,
       required this.enumeration,
-      required this.onTap,
-      required this.teachingUnitTitle});
+      required this.teachingUnit});
 
   final Enumeration enumeration;
-  final String teachingUnitTitle;
-  final Function()? onTap;
+  final TeachingUnit teachingUnit;
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
-      onTap: onTap,
+      teachingUnit: teachingUnit,
       text1: enumeration.title,
-      text3: teachingUnitTitle,
+      text3: teachingUnit.title,
       child2: (enumeration.modifiable)
           ? PopupMenuButton(
               color: Theme.of(context).colorScheme.background,

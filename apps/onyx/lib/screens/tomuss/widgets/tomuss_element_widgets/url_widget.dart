@@ -11,7 +11,7 @@ class URLWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TomussElementWidget(
+    return CommonOnyxWidget(
       left: IconButton(
           onPressed: () async {
             if (await canLaunchUrl(Uri.parse(url.value))) {

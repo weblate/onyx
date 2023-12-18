@@ -6,8 +6,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HeaderChildren extends StatelessWidget {
-  const HeaderChildren({super.key, required this.onTap});
-  final Function(TeachingUnit teachingUnit) onTap;
+  const HeaderChildren({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,45 +22,38 @@ class HeaderChildren extends StatelessWidget {
               widgets.add(
                 GradeCompactWidget(
                   grade: child.teachingUnitElement as Grade,
-                  teachingUnitTitle: child.teachingUnit.title,
-                  onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
                 ),
               );
             } else if (child.teachingUnitElement is Enumeration) {
               widgets.add(EnumerationCompactWidget(
                 enumeration: child.teachingUnitElement as Enumeration,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else if (child.teachingUnitElement is Presence) {
               widgets.add(PresenceCompactWidget(
                 presence: child.teachingUnitElement as Presence,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else if (child.teachingUnitElement is TomussText) {
               widgets.add(TomussTextCompactWidget(
                 text: child.teachingUnitElement as TomussText,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else if (child.teachingUnitElement is Upload) {
               widgets.add(UploadCompactWidget(
                 upload: child.teachingUnitElement as Upload,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else if (child.teachingUnitElement is StageCode) {
               widgets.add(StageCodeCompactWidget(
                 stageCode: child.teachingUnitElement as StageCode,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else if (child.teachingUnitElement is URL) {
               widgets.add(URLCompactWidget(
                 url: child.teachingUnitElement as URL,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
+                  teachingUnit: child.teachingUnit,
               ));
             } else {
               Res.logger

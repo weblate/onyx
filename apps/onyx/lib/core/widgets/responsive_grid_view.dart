@@ -7,7 +7,7 @@ class ResponsiveGridView extends StatelessWidget {
     this.physics,
     this.padding,
     required this.maxCrossAxisExtent,
-    this.childAspectRatio = 1.0,
+    this.childAspectRatio,
     this.crossAxisSpacing = 0.0,
     this.mainAxisSpacing = 0.0,
     this.shrinkWrap = false,
@@ -16,7 +16,7 @@ class ResponsiveGridView extends StatelessWidget {
   final ScrollPhysics? physics;
   final EdgeInsetsGeometry? padding;
   final double maxCrossAxisExtent;
-  final double childAspectRatio;
+  final double? childAspectRatio;
   final double crossAxisSpacing;
   final double mainAxisSpacing;
   final bool shrinkWrap;
@@ -32,7 +32,9 @@ class ResponsiveGridView extends StatelessWidget {
         children: children
             .map((e) => Container(
                 constraints: BoxConstraints(
-                  maxHeight: maxCrossAxisExtent * childAspectRatio,
+                  maxHeight: (childAspectRatio != null)
+                      ? maxCrossAxisExtent * childAspectRatio!
+                      : double.infinity,
                   minHeight: 0,
                 ),
                 padding: EdgeInsets.symmetric(
@@ -48,7 +50,7 @@ class ResponsiveGridView extends StatelessWidget {
         shrinkWrap: shrinkWrap,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: (Device.width / maxCrossAxisExtent).round(),
-          childAspectRatio: childAspectRatio,
+          childAspectRatio: childAspectRatio ?? 1.0,
           crossAxisSpacing: crossAxisSpacing,
           mainAxisSpacing: mainAxisSpacing,
         ),

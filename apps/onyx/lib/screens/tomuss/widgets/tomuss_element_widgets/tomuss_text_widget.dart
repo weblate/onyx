@@ -10,7 +10,7 @@ class TomussTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TomussElementWidget(
+    return CommonOnyxWidget(
       left: Center(
         child: Text(
           text.title,
