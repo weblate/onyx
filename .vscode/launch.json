@@ -12,9 +12,6 @@
             "env": {
                 "LD_LIBRARY_PATH": "${env:LD_LIBRARY_PATH}"
             },
-            "args": [
-                "--no-tree-shake-icons"
-            ],
             "program": "lib/main.dart"
         },
         {

@@ -134,7 +134,7 @@ extension FunctionalitiesExtention on Functionalities {
       // case Functionalities.map:
       //   return const MapPreview();
       // case Functionalities.izly:
-      //   return const IzlyPreview();
+      // return const IzlyPreview();
       // case Functionalities.settings:
       //   return const SettingsPreview();
       default:
