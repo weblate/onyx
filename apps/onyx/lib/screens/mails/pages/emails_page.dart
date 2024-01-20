@@ -23,9 +23,7 @@ class MailsPage extends StatelessWidget {
               current.status == MailStatus.loaded) &&
           current.status != previous.status,
       listener: (context, state) {
-        context.read<EmailCubit>().doQueuedAction(
-            blockTrackers:
-                context.read<SettingsCubit>().state.settings.blockTrackers);
+        context.read<EmailCubit>().doQueuedAction();
       },
       builder: (context, state) {
         Widget? loadingHeader;
