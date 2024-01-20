@@ -347,7 +347,9 @@ class EmailCubit extends Cubit<EmailState> {
         replyAll: replyAll,
         fromMailBox: (reply || forward) ? from : null);
     if (!Res.mock) {
-      mailClient!.addAction(action);
+      emit(state.copyWith(status: MailStatus.sending));
+      await mailClient!.addAction(action);
+      emit(state.copyWith(status: MailStatus.sended));
     }
   }
 
